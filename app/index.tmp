@@ -1,0 +1,23 @@
+<% var base = '' %>
+<!doctype html>
+<!--[if lte IE 9]><html class="lte-ie9" itemscope itemtype="http://schema.org/Movie"><![endif]-->
+<!--[if gt IE 9]><!--><html itemscope itemtype="http://schema.org/Movie"><!--<![endif]-->
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>5338 SE Foster</title>
+
+
+        <% if (htmlWebpackPlugin.options.env === 'prod') { %>
+        <link rel="stylesheet" href="<%= base %>css/main.css">
+        <% } %>
+    
+    </head>
+
+    <body class="dev">
+
+        <script type="text/javascript" src="<%= htmlWebpackPlugin.options.jsPath %>main.js"></script>
+
+    </body>
+</html>
