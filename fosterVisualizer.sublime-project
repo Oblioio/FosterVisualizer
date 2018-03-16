@@ -10,6 +10,9 @@
 		},
 		{
 			"path": "node_modules\\three\\src"
+		},
+		{
+			"path": "node_modules\\paper"
 		}
 	]
 }

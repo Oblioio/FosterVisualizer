@@ -8,6 +8,8 @@ import {EditorControls} from './vendor/EditorControls';
 import * as THREE from 'three';
 import controlkit from 'controlkit';
 import meshbasic_frag from 'webpack-glsl-loader!../assets/shaders/meshbasic_frag.glsl';
+import 'expose-loader?paper!paper';
+import paperBlank from '../assets/paperjs/blank.paperjs';
 
 import 'gsap/TweenMax';
 
@@ -31,16 +33,16 @@ var toLoad = [
     "assets/obj/floor_1_backWall.obj",
     "assets/obj/floor_1_innerWalls.obj",
     "assets/obj/floor_2_backWalls.obj",
-    "assets/obj/floor_2_roof.obj"
+    "assets/obj/floor_2_roof.obj",
+    "assets/obj/floor_2_officeWalls.obj",
+    "assets/obj/rafters.obj"
 ];
 
 function Main () {
     var app = this;
     window.app = app;
-    // console.log(THREE);
     // console.log(OBJLoader);
     // console.log(controlkit);
-    console.log(meshbasic_frag);
 
     ui = new controlkit();
 
@@ -55,7 +57,7 @@ function Main () {
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );    
 
-    var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.1 );
+    var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.2 );
     scene.add( ambientLight );
     var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
     directionalLight.position.set(-20,20,-10);
@@ -80,7 +82,7 @@ function Main () {
 
     app.models = {};
     scene.add( directionalLight.target );
-    var pointLight = new THREE.PointLight( 0xffffff, 0.4 );
+    var pointLight = new THREE.PointLight( 0xffffff, 0.6 );
     camera.add( pointLight );
 
 
@@ -101,8 +103,8 @@ function Main () {
 
     var presets = {
         "upstairs": {
-            pos:{x: -7.690997547123423, y: 5.690438517605944, z: -13.620662626317483},
-            center: {x: -6.245315193140939, y: 5.470590311023063, z: -16.164355500632855}
+            pos:{x: -7.690997547123423, y: 5.290438517605944, z: -13.620662626317483},
+            center: {x: -6.245315193140939, y: 5.070590311023063, z: -16.164355500632855}
         },
         "lobby": {
             pos:{x: -3.143166296663331, y: 1.825414693984566, z: -19.005826436670137},
@@ -125,11 +127,22 @@ function Main () {
         presetGroup.addButton(loc, createCallback(preset.pos, preset.center));
     }
 
-    solidMaterial = new THREE.MeshPhongMaterial({color:0xff0000});
-    transparentMaterial = new THREE.MeshPhongMaterial({color:0xff0000, transparent:true, opacity:0.5});
+    solidMaterial = new THREE.MeshPhongMaterial({color:0xffffff});
+    transparentMaterial = new THREE.MeshPhongMaterial({color:0xffffff, transparent:true, opacity:0.5});
+
+
+    app.canvas = document.createElement('canvas');
+    app.canvas.width = 4096;
+    app.canvas.height = 4096;
+    app.canvas.id = "cncDesign";
+    paper.setup(app.canvas);
+    paper.execute(paperBlank);
+
     cncMaterial = new THREE.MeshPhongMaterial({
         color:0xffffff,
-        // map:,
+        map:new THREE.CanvasTexture(app.canvas),
+        // map:new THREE.TextureLoader().load( "assets/textures/cnc.png" ),
+        alphaTest: 0.5,
         side:THREE.DoubleSide
     });
 
