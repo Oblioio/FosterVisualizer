@@ -99,7 +99,7 @@ module.exports = {
         use: 'file-loader?name=images/[path][name].[ext]&context=app/assets/images',
       },
       {
-        test: /\.(glsl|frag|vert|template|paperjs)$/,
+        test: /\.(glsl|frag|vert|template|paper.js)$/,
         use: 'raw-loader',
         include: [
           path.resolve(__dirname, '../app')

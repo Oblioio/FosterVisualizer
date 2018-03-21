@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import controlkit from 'controlkit';
 import meshbasic_frag from 'webpack-glsl-loader!../assets/shaders/meshbasic_frag.glsl';
 import 'expose-loader?paper!paper';
-import paperBlank from '../assets/paperjs/blank.paperjs';
+import paperBlank from '../assets/paperjs/burst.paper.js';
 
 import 'gsap/TweenMax';
 
